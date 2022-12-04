@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        function handleResize() {
+            setWidth(window.innerWidth);
+        }
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    });
+    return (
+        <div
+            className="App"
+            style={{
+                display: "flex",
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+            }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+            <header className="ChromeBone">
+                <div className="width-div">
+                    <h1>{width}</h1>
+                </div>
+            </header>
+        </div>
+    );
 }
 
 export default App;
